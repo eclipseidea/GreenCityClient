@@ -1,0 +1,25 @@
+<div class="chat-rooms">
+  <div class="rooms-search">
+    <input type="text" [placeholder]="'chat.search-user' | translate" [(ngModel)]="chatRoomsSearchInput" />
+    <button type="button" class="search-settings" [title]="'chat.settings' | translate">
+      <img [src]="chatIcons.settings" [alt]="'chat.settings' | translate" />
+    </button>
+  </div>
+
+  <div class="chats">
+    <div class="separate-chat" *ngFor="let chat of chats | chatsSearch: chatRoomsSearchInput" (click)="openNewMsgWindow(chat)">
+      <img class="chat-logo" [src]="chat.logo || chatIcons.userLogo" [alt]="'chat.user-logo' | translate" />
+
+      <div class="chat-text">
+        <div class="chat-text-title">
+          <span class="chat-title">{{ chat.name }}</span>
+          <span class="chat-title-dot"></span>
+          <span class="chat-title-time">
+            {{ messageDateTreatment(chat.lastMessage.date) }}
+          </span>
+        </div>
+        <span class="chat-last-message">{{ chat.lastMessage.content | chatLastMsg }}</span>
+      </div>
+    </div>
+  </div>
+</div>

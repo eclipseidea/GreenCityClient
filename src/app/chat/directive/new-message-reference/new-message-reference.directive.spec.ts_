@@ -1,0 +1,8 @@
+import { NewMessageReferenceDirective } from './dir-reference.directive';
+
+describe('NewMessageReferenceDirective', () => {
+  it('should create an instance', () => {
+    const directive = new NewMessageReferenceDirective();
+    expect(directive).toBeTruthy();
+  });
+});

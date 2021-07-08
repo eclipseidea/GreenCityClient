@@ -1,0 +1,25 @@
+<div class="chat-popup" [ngClass]="{ opened: isOpen }">
+  <div class="popup-title">
+    <button class="popup-title-account" (click)="commonChatService.changePopupOpenStatus()">
+      <img class="account-image" [src]="chatIcons.userLogo" [alt]="'chat.user-logo' | translate" />
+      <span class="account-text">{{ 'chat.messages' | translate }}</span>
+    </button>
+
+    <div class="popup-title-buttons">
+      <button type="button" class="title-button" [title]="'chat.options' | translate" (click)="openOptions()">
+        <img [src]="chatIcons.threeDots" [alt]="'chat.options' | translate" />
+      </button>
+
+      <button type="button" class="title-button" [title]="'chat.new-message' | translate" (click)="openNewMessageWindow(true)">
+        <img [src]="chatIcons.newMessage" [alt]="'chat.new-message' | translate" />
+      </button>
+
+      <button type="button" class="title-button" [title]="'chat.open-chat' | translate" (click)="openModal()">
+        <img [src]="chatIcons.chat" [alt]="'chat.open-chat' | translate" />
+      </button>
+    </div>
+  </div>
+  <app-chat-rooms (msgWindowCreating)="openNewMessageWindow(false)"></app-chat-rooms>
+</div>
+
+<div class="new-msg-container" appDirReference></div>

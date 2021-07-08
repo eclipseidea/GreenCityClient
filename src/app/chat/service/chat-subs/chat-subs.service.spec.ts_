@@ -1,0 +1,12 @@
+import { TestBed } from '@angular/core/testing';
+
+import { ChatSubsService } from './chat-subs.service';
+
+describe('ChatSubsService', () => {
+  beforeEach(() => TestBed.configureTestingModule({}));
+
+  it('should be created', () => {
+    const service: ChatSubsService = TestBed.get(ChatSubsService);
+    expect(service).toBeTruthy();
+  });
+});

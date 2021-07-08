@@ -1,0 +1,49 @@
+<div class="new-msg-window">
+  <div class="new-msg-title" [ngClass]="{ 'chat-chosen': currentChat }">
+    <span>{{ 'chat.new-message' | translate }}</span>
+    <button type="button" (click)="newMessageClose()">&times;</button>
+  </div>
+
+  <div class="receiver" *ngIf="currentChat; else receiverSearch">
+    <div class="account">
+      <img [src]="currentChat.logo || chatIcons.userLogo" [alt]="'chat.user-logo' | translate" />
+      <span class="chat-name">{{ currentChat.name }}</span>
+    </div>
+    <span (click)="currentChatService.setCurrentChat(null)">&times;</span>
+  </div>
+
+  <div class="message">
+    <textarea [placeholder]="'chat.type-message' | translate" [(ngModel)]="messageInput"></textarea>
+  </div>
+
+  <div class="msg-footer">
+    <button type="button" class="clip-button" [title]="'chat.add-file' | translate">
+      <img [src]="chatIcons.paperClip" [alt]="'chat.add-file' | translate" />
+    </button>
+    <button type="button" class="send-button">
+      {{ 'chat.send' | translate }}
+    </button>
+  </div>
+
+  <ng-template #receiverSearch>
+    <input
+      type="text"
+      class="chat-search"
+      [placeholder]="'chat.search-user' | translate"
+      [(ngModel)]="chatSearchInput"
+      (input)="chatSearch()"
+    />
+    <div class="chats-dropdown-wrapper" [ngClass]="{ active: isSearching }">
+      <div class="chats-dropdown" *ngIf="isSearching">
+        <div
+          class="chats-search-suggest"
+          *ngFor="let chat of chats | chatsSearch: chatSearchInput"
+          (click)="currentChatService.setCurrentChat(chat)"
+        >
+          <img [src]="chat.logo || chatIcons.userLogo" [alt]="'chat.user-logo' | translate" />
+          <span class="chat-name">{{ chat.name }}</span>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

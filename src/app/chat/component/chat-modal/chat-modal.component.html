@@ -1,0 +1,11 @@
+<div class="chat-modal-wrapper">
+  <span class="close-button" (click)="closeChatModal()">&times;</span>
+  <div class="chats">
+    <div class="chat-modal-title">
+      <img [src]="chatIcons.greenLeaf" [alt]="'chat.green-leaf' | translate" />
+      <span>{{ 'chat.messages' | translate }}</span>
+    </div>
+    <app-chat-rooms></app-chat-rooms>
+  </div>
+  <div class="current-chat"></div>
+</div>

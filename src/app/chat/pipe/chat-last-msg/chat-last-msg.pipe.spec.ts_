@@ -1,0 +1,8 @@
+import { ChatLastMsgPipe } from './chat-last-msg.pipe';
+
+describe('ChatLastMsgPipe', () => {
+  it('create an instance', () => {
+    const pipe = new ChatLastMsgPipe();
+    expect(pipe).toBeTruthy();
+  });
+});
