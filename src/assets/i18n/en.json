@@ -873,6 +873,9 @@
     "type-message": "Type a message...",
     "add-file": "Add File",
     "send": "Send",
-    "settings": "Settings"
+    "settings": "Settings",
+    "choose-chat": "Choose a Chat",
+    "close": "Close",
+    "green-planet": "Planet"
   }
 }

@@ -1,0 +1,21 @@
+<div class="current-chat">
+  <div class="current-chat-title">
+    <span>{{ currentChat?.name || 'chat.choose-chat' | translate }}</span>
+  </div>
+  <div class="chat" *ngIf="currentChat; else emptyChatPlaceholder">
+    <div class="current-chat-block">
+      <div class="message" *ngFor="let message of messages" [ngClass]="{ own: chatMessagesService.isOwnMessage(message.senderId) }">
+        {{ message.content }}
+        <!-- TODO: end up this logic -->
+      </div>
+    </div>
+
+    <app-message-sender [inModal]="true"></app-message-sender>
+  </div>
+
+  <ng-template #emptyChatPlaceholder>
+    <div class="green-planet-wrapper">
+      <img [src]="chatIcons.greenPlanet" [alt]="'chat.green-planet' | translate" />
+    </div>
+  </ng-template>
+</div>

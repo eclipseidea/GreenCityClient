@@ -16,10 +16,9 @@ export class NewMessageWindowComponent implements OnInit, OnDestroy {
   public chatIcons = chatIcons;
   public currentChat: ChatRoomModel;
 
-  public messageInput: string = '';
-  public chatSearchInput: string = '';
+  public chatSearchInput = '';
   public chats: ChatRoomModel[] = [];
-  public isSearching: boolean = false;
+  public isSearching = false;
 
   constructor(
     public currentChatService: CurrentChatService,
@@ -40,13 +39,13 @@ export class NewMessageWindowComponent implements OnInit, OnDestroy {
     this.chatSubsService.addNewSub(currentChatSub, chatsSub);
   }
 
+  ngOnDestroy() {
+    this.chatSubsService.deleteAllSubs();
+  }
+
   newMessageClose() {
     this.currentChatService.setCurrentChat(null);
     this.commonChatService.changeNewMessageWindowStatus(false);
-  }
-
-  ngOnDestroy() {
-    this.chatSubsService.deleteAllSubs();
   }
 
   chatSearch() {

@@ -581,7 +581,6 @@
       "ubs-courier": "UBS курьер",
       "follow-us": "Присоединяйтесь к нам"
     },
-
     "user-goals": {
       "add-goal": {
         "update": "Обновить",
@@ -878,6 +877,9 @@
     "type-message": "Напишите сообщение...",
     "add-file": "Добавить файл",
     "send": "Отправить",
-    "settings": "Настройки"
+    "settings": "Настройки",
+    "choose-chat": "Выберите Чат",
+    "close": "Закрыть",
+    "green-planet": "Планета"
   }
 }

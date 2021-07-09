@@ -12,18 +12,7 @@
     <span (click)="currentChatService.setCurrentChat(null)">&times;</span>
   </div>
 
-  <div class="message">
-    <textarea [placeholder]="'chat.type-message' | translate" [(ngModel)]="messageInput"></textarea>
-  </div>
-
-  <div class="msg-footer">
-    <button type="button" class="clip-button" [title]="'chat.add-file' | translate">
-      <img [src]="chatIcons.paperClip" [alt]="'chat.add-file' | translate" />
-    </button>
-    <button type="button" class="send-button">
-      {{ 'chat.send' | translate }}
-    </button>
-  </div>
+  <app-message-sender></app-message-sender>
 
   <ng-template #receiverSearch>
     <input

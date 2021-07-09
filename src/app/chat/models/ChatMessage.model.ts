@@ -3,7 +3,7 @@ export interface ChatMessageModel {
   chatId: number;
   content: string;
   date: Date;
-  // senderId: number;
+  senderId: number;
   // status: string;
   // fileName: string;
   // fileType: string;

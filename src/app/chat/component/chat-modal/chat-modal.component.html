@@ -1,5 +1,7 @@
 <div class="chat-modal-wrapper">
-  <span class="close-button" (click)="closeChatModal()">&times;</span>
+  <button type="button" class="close-button" (click)="closeChatModal()" [title]="'chat.close' | translate">
+    <img [src]="chatIcons.close" [alt]="'chat.close' | translate" />
+  </button>
   <div class="chats">
     <div class="chat-modal-title">
       <img [src]="chatIcons.greenLeaf" [alt]="'chat.green-leaf' | translate" />
@@ -7,5 +9,5 @@
     </div>
     <app-chat-rooms></app-chat-rooms>
   </div>
-  <div class="current-chat"></div>
+  <app-current-chat></app-current-chat>
 </div>

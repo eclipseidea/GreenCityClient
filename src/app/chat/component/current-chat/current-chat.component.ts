@@ -1,0 +1,41 @@
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { CurrentChatService } from '../../service/current-chat/current-chat.service';
+import { ChatSubsService } from '../../service/chat-subs/chat-subs.service';
+import { ChatRoomModel } from '../../models/ChatRoom.model';
+import { chatIcons } from '../../image-pathes/chatIcons';
+import { ChatMessagesService } from '../../service/chat-messages/chat-messages.service';
+import { ChatMessageModel } from '../../models/ChatMessage.model';
+
+@Component({
+  selector: 'app-current-chat',
+  templateUrl: './current-chat.component.html',
+  styleUrls: ['./current-chat.component.scss'],
+  providers: [ChatSubsService]
+})
+export class CurrentChatComponent implements OnInit, OnDestroy {
+  public currentChat: ChatRoomModel;
+  public chatIcons = chatIcons;
+  public messages: ChatMessageModel[] = [];
+
+  constructor(
+    public currentChatService: CurrentChatService,
+    private chatSubsService: ChatSubsService,
+    public chatMessagesService: ChatMessagesService
+  ) {}
+
+  ngOnInit() {
+    const currentChatSub = this.currentChatService.currentChatStream$.subscribe((chat) => {
+      this.currentChat = chat;
+    });
+
+    const currentChatMessagesSub = this.chatMessagesService.currentMessagesStream$.subscribe((messages) => {
+      this.messages = messages;
+    });
+
+    this.chatSubsService.addNewSub(currentChatSub, currentChatMessagesSub);
+  }
+
+  ngOnDestroy() {
+    this.chatSubsService.deleteAllSubs();
+  }
+}

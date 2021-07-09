@@ -18,7 +18,7 @@ export class ChatRoomsComponent implements OnInit, OnDestroy {
   @Output() msgWindowCreating = new EventEmitter();
 
   public chats: ChatRoomModel[];
-  public chatRoomsSearchInput: string = '';
+  public chatRoomsSearchInput = '';
 
   constructor(
     private chatRoomsService: ChatRoomsService,
@@ -27,13 +27,6 @@ export class ChatRoomsComponent implements OnInit, OnDestroy {
     private commonChatService: CommonChatService,
     public dialog: MatDialog
   ) {}
-
-  messageDateTreatment(date: Date): string {
-    const today = new Date().toLocaleDateString();
-    const sentDate = date.toLocaleDateString();
-    const sentTime = date.toLocaleTimeString();
-    return (today === sentDate ? sentTime : sentDate).slice(0, 5);
-  }
 
   ngOnInit() {
     this.chatRoomsService.getAllUsersChat();
@@ -52,6 +45,13 @@ export class ChatRoomsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.chatSubsService.deleteAllSubs();
+  }
+
+  messageDateTreatment(date: Date): string {
+    const today = new Date().toLocaleDateString();
+    const sentDate = date.toLocaleDateString();
+    const sentTime = date.toLocaleTimeString();
+    return (today === sentDate ? sentTime : sentDate).slice(0, 5);
   }
 
   openNewMsgWindow(chat: ChatRoomModel) {

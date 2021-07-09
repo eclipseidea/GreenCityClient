@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, OnInit, ViewChild } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CommonChatService } from '../../service/common-chat/common-chat.service';
 import { ChatSubsService } from '../../service/chat-subs/chat-subs.service';
 import { NewMessageWindowComponent } from '../new-message-window/new-message-window.component';
@@ -14,11 +14,12 @@ import { chatIcons } from '../../image-pathes/chatIcons';
   styleUrls: ['./chat-popup.component.scss'],
   providers: [ChatSubsService]
 })
-export class ChatPopupComponent implements OnInit {
+export class ChatPopupComponent implements OnInit, OnDestroy {
   @ViewChild(NewMessageReferenceDirective, { static: false }) refDir: NewMessageReferenceDirective;
   private dialogConfig = {
     hasBackdrop: true,
     closeOnNavigation: true,
+    disableClose: true,
     panelClass: 'custom-dialog-container'
   };
 

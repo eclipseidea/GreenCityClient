@@ -5,5 +5,7 @@ export const chatIcons = {
   paperClip: 'assets/img/chat/paper-clip.svg',
   settings: 'assets/img/chat/settings.svg',
   threeDots: 'assets/img/chat/three-dots.svg',
-  userLogo: 'assets/img/chat/user.svg'
+  userLogo: 'assets/img/chat/user.svg',
+  close: 'assets/img/chat/close.svg',
+  greenPlanet: 'assets/img/chat/planet-earth.svg'
 };

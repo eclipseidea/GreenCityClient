@@ -12,6 +12,8 @@ import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SharedMainModule } from '@shared/shared-main.module';
 import { SharedModule } from '../shared/shared.module';
+import { CurrentChatComponent } from './component/current-chat/current-chat.component';
+import { MessageSenderComponent } from './component/message-sender/message-sender.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { SharedModule } from '../shared/shared.module';
     NewMessageWindowComponent,
     NewMessageReferenceDirective,
     ChatsSearchPipe,
-    ChatLastMsgPipe
+    ChatLastMsgPipe,
+    CurrentChatComponent,
+    MessageSenderComponent
   ],
   exports: [ChatPopupComponent],
   imports: [
