@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { CurrentChatService } from '../../service/current-chat/current-chat.service';
 import { ChatSubsService } from '../../service/chat-subs/chat-subs.service';
 import { ChatRoomModel } from '../../models/ChatRoom.model';
@@ -12,10 +12,11 @@ import { ChatMessageModel } from '../../models/ChatMessage.model';
   styleUrls: ['./current-chat.component.scss'],
   providers: [ChatSubsService]
 })
-export class CurrentChatComponent implements OnInit, OnDestroy {
+export class CurrentChatComponent implements OnInit, OnDestroy, AfterViewChecked {
+  @ViewChildren('chatElement') chatElement: QueryList<any>;
   public currentChat: ChatRoomModel;
   public chatIcons = chatIcons;
-  public messages: ChatMessageModel[] = [];
+  public allChatMessages: ChatMessageModel[] = [];
 
   constructor(
     public currentChatService: CurrentChatService,
@@ -29,10 +30,16 @@ export class CurrentChatComponent implements OnInit, OnDestroy {
     });
 
     const currentChatMessagesSub = this.chatMessagesService.currentMessagesStream$.subscribe((messages) => {
-      this.messages = messages;
+      this.allChatMessages = messages;
     });
 
     this.chatSubsService.addNewSub(currentChatSub, currentChatMessagesSub);
+  }
+
+  ngAfterViewChecked() {
+    if (this.currentChat) {
+      this.chatElement.first.nativeElement.scrollTop = this.chatElement.first.nativeElement.scrollHeight;
+    }
   }
 
   ngOnDestroy() {

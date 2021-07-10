@@ -1,29 +1,29 @@
 import { ChatRoomModel } from './models/ChatRoom.model';
-import { ChatMessageModel } from './models/ChatMessage.model';
+import { UsersMock } from './usersMock';
 
 export const UserChatsMock: ChatRoomModel[] = [
   {
     id: 1,
-    name: 'Gena',
+    name: UsersMock.user1.firstName + ' ' + UsersMock.user1.lastName,
     lastMessage: {
-      content: 'Hey buddy, how you doing?',
-      date: new Date()
-    } as ChatMessageModel
+      id: 4,
+      chatId: 1,
+      date: new Date('December 18, 2021 12:17:00'),
+      content: 'Bye',
+      sender: UsersMock.user1
+    },
+    participants: [UsersMock.self, UsersMock.user1]
   } as ChatRoomModel,
   {
     id: 2,
-    name: 'Serega',
+    name: UsersMock.user2.firstName + ' ' + UsersMock.user2.lastName,
     lastMessage: {
-      content: 'Черный бумер, черные глаза, один я - нет.',
-      date: new Date()
-    } as ChatMessageModel
-  } as ChatRoomModel,
-  {
-    id: 3,
-    name: 'Evgen',
-    lastMessage: {
-      content: 'Го играть? Или ты как обычно',
-      date: new Date()
-    } as ChatMessageModel
+      id: 4,
+      chatId: 2,
+      date: new Date('December 21, 2021 14:14:00'),
+      content: 'I knew:)',
+      sender: UsersMock.user2
+    },
+    participants: [UsersMock.self, UsersMock.user2]
   } as ChatRoomModel
 ];

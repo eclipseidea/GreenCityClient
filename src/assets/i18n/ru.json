@@ -880,6 +880,8 @@
     "settings": "Настройки",
     "choose-chat": "Выберите Чат",
     "close": "Закрыть",
-    "green-planet": "Планета"
+    "green-planet": "Планета",
+    "participants": "Участники",
+    "you": "Вы"
   }
 }

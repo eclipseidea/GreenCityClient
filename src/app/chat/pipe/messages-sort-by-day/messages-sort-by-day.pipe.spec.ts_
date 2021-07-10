@@ -1,0 +1,8 @@
+import { MessagesSortByDayPipe } from './messages-sort-by-day.pipe';
+
+describe('MessagesSortByDayPipe', () => {
+  it('create an instance', () => {
+    const pipe = new MessagesSortByDayPipe();
+    expect(pipe).toBeTruthy();
+  });
+});

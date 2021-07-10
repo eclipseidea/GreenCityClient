@@ -876,6 +876,8 @@
     "settings": "Settings",
     "choose-chat": "Choose a Chat",
     "close": "Close",
-    "green-planet": "Planet"
+    "green-planet": "Planet",
+    "participants": "Participants",
+    "you": "You"
   }
 }

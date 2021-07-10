@@ -12,8 +12,22 @@
 
 .current-chat-title {
   @include flex-options(row, flex-start, center);
-  padding: 10px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  padding: 10px;
+  column-gap: 7px;
+  flex: 0;
+}
+
+.dot {
+  height: 3px;
+  width: 3px;
+  border-radius: 50%;
+  background: var(--quaternary-dark-grey);
+}
+
+.current-chat-participants {
+  font-size: 13px;
+  cursor: pointer;
 }
 
 .green-planet-wrapper {
@@ -28,4 +42,105 @@
     left: 50%;
     transform: translate(-50%, -50%);
   }
+}
+
+.chat {
+  @include flex-options(column, flex-end, center);
+  overflow: hidden;
+
+  & > * {
+    width: 100%;
+  }
+}
+
+.current-chat-block {
+  @include flex-options(column);
+  overflow-y: auto;
+  max-height: 610px;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    background: var(--primary-light-grey);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--tertiary-light-grey);
+    border-radius: 3px;
+  }
+}
+
+.day-title {
+  margin: 15px 0;
+  color: var(--secondary-grey);
+  width: 100%;
+  border-radius: 10px;
+  position: relative;
+  @include flex-options(row, center, center);
+
+  &:after,
+  &:before {
+    content: '';
+    width: 40%;
+    height: 1px;
+    border-radius: 1px;
+    display: block;
+    position: absolute;
+    background: var(--tertiary-light-grey);
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  &:after {
+    right: 0;
+  }
+
+  &:before {
+    left: 0;
+  }
+}
+
+.message-day {
+  @include flex-options(column, flex-end, flex-start);
+  width: 100%;
+}
+
+.message {
+  @include flex-options(row, flex-start, flex-end);
+  column-gap: 10px;
+  padding: 10px;
+  width: 100%;
+
+  &.own {
+    justify-content: flex-end;
+
+    .text-block {
+      justify-content: flex-end;
+      border-radius: 3px 3px 0 3px;
+    }
+
+    .sender-logo {
+      display: none;
+    }
+  }
+}
+
+.text-block {
+  @include flex-options(row, flex-start, center);
+  width: 40%;
+  background: rgba(241, 241, 241, 0.5);
+  padding: 3px;
+  border-radius: 3px 3px 3px 0;
+  position: relative;
+}
+
+.send-date {
+  span {
+    font-size: 12px;
+    color: var(--secondary-grey);
+  }
+}
+
+.message-content {
+  font-size: 14px;
+  color: var(--secondary-grey);
 }

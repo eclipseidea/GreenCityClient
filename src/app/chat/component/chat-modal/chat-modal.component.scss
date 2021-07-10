@@ -3,7 +3,7 @@
 .chat-modal-wrapper {
   height: 80vh;
   width: 60vw;
-  min-width: 700px;
+  min-width: 900px;
   @include flex-options(row, space-between, center);
   background: var(--white);
   position: relative;
