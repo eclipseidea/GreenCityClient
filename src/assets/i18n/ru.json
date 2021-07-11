@@ -867,7 +867,6 @@
     }
   },
   "chat": {
-    "green-leaf": "Лист",
     "messages": "Сообщения",
     "user-logo": "Пользователь",
     "options": "Параметры",
@@ -882,6 +881,7 @@
     "close": "Закрыть",
     "green-planet": "Планета",
     "participants": "Участники",
-    "you": "Вы"
+    "you": "Вы",
+    "smile": "Смайлы"
   }
 }

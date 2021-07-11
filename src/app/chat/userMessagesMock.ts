@@ -35,64 +35,49 @@ export const UserMessagesMock: ChatMessageModel[] = [
     id: 1,
     chatId: 2,
     date: new Date('December 21, 2021 14:11:00'),
-    content: 'Whats up bb?',
+    content: 'Идём на чёрную вдову?',
     sender: UsersMock.user2
   },
   {
     id: 2,
     chatId: 2,
     date: new Date('December 21, 2021 14:12:00'),
-    content: 'push off',
-    sender: UsersMock.self
+    content: 'И потом к малому на каль?',
+    sender: UsersMock.user2
   },
   {
     id: 3,
     chatId: 2,
     date: new Date('December 21, 2021 14:13:00'),
-    content: 'hmm, wait',
+    content: 'У меня сегодня дела',
     sender: UsersMock.self
   },
   {
     id: 4,
     chatId: 2,
     date: new Date('December 21, 2021 14:14:00'),
-    content:
-      'Замысел эпопеи формировался задолго до начала работы над тем текстом, который известен под названием «Война и мир». В наброске предисловия к «Войне и миру» Толстой писал, что в 1856 году начал писать повесть, «герой которой должен был быть декабрист, возвращающийся с семейством в Россию.',
+    content: 'Так я не на сейчас',
     sender: UsersMock.user2
   },
   {
     id: 4,
     chatId: 2,
     date: new Date('December 21, 2021 14:14:00'),
-    content: 'I knew:)',
+    content: 'А где-то к 6 стрелканутся',
     sender: UsersMock.user2
   },
   {
     id: 4,
     chatId: 2,
     date: new Date('December 21, 2021 14:14:00'),
-    content: 'I knew:)',
+    content: 'Ну впринципе хорошо что тренер прийдет',
     sender: UsersMock.user2
   },
   {
     id: 4,
     chatId: 2,
     date: new Date('December 21, 2021 14:14:00'),
-    content: 'I knew:)',
-    sender: UsersMock.user2
-  },
-  {
-    id: 4,
-    chatId: 2,
-    date: new Date('December 21, 2021 14:14:00'),
-    content: 'I knew:)',
-    sender: UsersMock.user2
-  },
-  {
-    id: 4,
-    chatId: 2,
-    date: new Date('December 21, 2021 14:14:00'),
-    content: 'I knew:)',
+    content: 'Будешь хоть команды знаьь',
     sender: UsersMock.user2
   }
 ];

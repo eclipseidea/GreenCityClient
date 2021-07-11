@@ -1,35 +1,45 @@
 @import '../chat-popup/chat-popup.component';
 
-.message {
-  padding: 0 10px;
+.message.in-new-message {
+  --sender-button-background: #171717;
   width: 100%;
   font-size: 14px;
   border-top: 1px solid rgba(0, 0, 0, 0.25);
+  position: relative;
+
+  & > * {
+    padding: 0 10px;
+  }
 
   textarea {
-    padding: 0;
-    height: 150px;
     width: 100%;
+    height: 150px;
     resize: none;
     border: none;
     outline: none;
+    margin-bottom: 40px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  }
 
-    &.smallMessageArea {
-      height: 50px;
-    }
+  button {
+    position: absolute;
+    bottom: 0;
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.25);
+  }
+
+  .send-button {
+    right: 0;
+    transform: translate(-10px, -50%);
+  }
+
+  .add-file-button {
+    left: 0;
+    transform: translate(10px, -50%);
   }
 }
 
-.msg-footer {
-  padding: 5px 10px;
-  background: var(--primary-dark-grey);
-  @include flex-options(row, space-between, center);
-}
-
-.clip-button {
+.add-file-button {
   border-radius: 50%;
-  background: var(--white);
-  padding: 3px;
   height: 21px;
   width: 21px;
   @include flex-options(row, center, center);
@@ -41,7 +51,36 @@
 
 .send-button {
   font-size: 14px;
-  background: var(--white);
+  color: var(--sender-button-background);
   border-radius: 15px;
   padding: 0 5px;
+}
+
+.message.in-modal {
+  width: 90%;
+  margin: 15px auto;
+  max-height: 100px;
+  padding: 10px 15px;
+  border-radius: 25px;
+  box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.25);
+  @include flex-options(row, space-between, center);
+
+  input {
+    all: unset;
+    width: 100%;
+    padding: 0 15px;
+    font-size: 14px;
+    height: 18px;
+  }
+
+  button {
+    all: unset;
+    position: static;
+    box-shadow: none;
+    cursor: pointer;
+
+    img {
+      height: 20px;
+    }
+  }
 }

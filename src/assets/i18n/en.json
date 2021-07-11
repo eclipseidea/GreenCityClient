@@ -863,7 +863,6 @@
     }
   },
   "chat": {
-    "green-leaf": "Leaf",
     "messages": "Messages",
     "user-logo": "User",
     "options": "Options",
@@ -878,6 +877,6 @@
     "close": "Close",
     "green-planet": "Planet",
     "participants": "Participants",
-    "you": "You"
+    "smile": "Smiles"
   }
 }
