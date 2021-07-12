@@ -877,6 +877,9 @@
     "close": "Close",
     "green-planet": "Planet",
     "participants": "Participants",
-    "smile": "Smiles"
+    "smile": "Smiles",
+    "friends": "Friends",
+    "search-friends-text": "It looks like you don't have chats, try to find new acquaintances!",
+    "search-friends-button": "Find friends"
   }
 }

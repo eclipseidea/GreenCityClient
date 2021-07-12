@@ -1,6 +1,10 @@
 <form class="message" [formGroup]="messageForm" [ngClass]="inModal ? 'in-modal' : 'in-new-message'" (ngSubmit)="sendMessage()">
-  <button type="button" class="add-file-button" [title]="'chat.smile' | translate">
+  <button type="button" class="smiles" [title]="'chat.smile' | translate">
     <img [src]="chatIcons.smile" [alt]="'chat.smile' | translate" />
+  </button>
+
+  <button type="button" class="add-file-button" [title]="'chat.add-file' | translate">
+    <img [src]="chatIcons.paperClip" [alt]="'chat.add-file' | translate" />
   </button>
 
   <textarea
@@ -15,18 +19,7 @@
     <input maxlength="255" type="text" [placeholder]="'chat.type-message' | translate" formControlName="message" />
   </ng-template>
 
-  <button
-    type="button"
-    class="add-file-button"
-    [title]="'chat.add-file' | translate"
-    *ngIf="!messageForm.get('message').value || !inModal; else sendButton"
-  >
-    <img [src]="chatIcons.paperClip" [alt]="'chat.add-file' | translate" />
+  <button type="submit" class="send-button" [title]="'chat.send' | translate" [ngClass]="{ visible: messageForm.get('message').valid }">
+    {{ 'chat.send' | translate }}
   </button>
-  <!-- TODO: refactor code for new message window -->
-  <ng-template #sendButton>
-    <button type="submit" class="send-button" [title]="'chat.send' | translate">
-      {{ 'chat.send' | translate }}
-    </button>
-  </ng-template>
 </form>

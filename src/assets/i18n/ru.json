@@ -881,7 +881,9 @@
     "close": "Закрыть",
     "green-planet": "Планета",
     "participants": "Участники",
-    "you": "Вы",
-    "smile": "Смайлы"
+    "smile": "Смайлы",
+    "friends": "Друзья",
+    "search-friends-text": "Похоже, у вас нету чатов, попробуйте найти новые знакомства!",
+    "search-friends-button": "Искать друзей"
   }
 }

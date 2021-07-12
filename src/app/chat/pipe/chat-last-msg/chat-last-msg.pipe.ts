@@ -5,6 +5,16 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class ChatLastMsgPipe implements PipeTransform {
   transform(lastMessage: string): any {
-    return lastMessage.slice(0, 32) + (lastMessage.length > 32 ? '...' : '');
+    const result: string[] = [];
+    for (const char of lastMessage) {
+      if (result.length === 30) {
+        break;
+      }
+      if (char.toUpperCase() === char) {
+        result.push('');
+      }
+      result.push(char);
+    }
+    return `${result.join('')}...`;
   }
 }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { ChatRoomsService } from '../../service/chat-rooms/chat-rooms.service';
 import { ChatSubsService } from '../../service/chat-subs/chat-subs.service';
 import { CurrentChatService } from '../../service/current-chat/current-chat.service';
@@ -15,6 +15,7 @@ import { ChatRoomModel } from '../../models/ChatRoom.model';
 })
 export class ChatRoomsComponent implements OnInit, OnDestroy {
   public chatIcons = chatIcons;
+  @ViewChild('chatsWrapper', { static: false }) chatsWrapper: ElementRef;
   @Output() msgWindowCreating = new EventEmitter();
 
   public chats: ChatRoomModel[];
@@ -31,12 +32,15 @@ export class ChatRoomsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.chatRoomsService.getAllUsersChat();
     const userChatSub = this.chatRoomsService.userChatsStream$.subscribe((chats) => {
-      this.chats = chats;
+      // this.chats = chats;
     });
 
     const isOpenSub = this.commonChatService.popupIsOpenStream$.subscribe((isOpen) => {
       if (!isOpen) {
         this.chatRoomsSearchInput = '';
+        if (this.chatsWrapper) {
+          this.chatsWrapper.nativeElement.scrollTop = 0;
+        }
       }
     });
 

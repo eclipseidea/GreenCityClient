@@ -7,5 +7,6 @@ export const chatIcons = {
   userLogo: 'assets/img/chat/user.svg',
   close: 'assets/img/chat/close.svg',
   greenPlanet: 'assets/img/chat/planet-earth.svg',
-  smile: 'assets/img/chat/smile.svg'
+  smile: 'assets/img/chat/smile.svg',
+  friends: 'assets/img/chat/friends.svg'
 };

@@ -13,7 +13,7 @@
   @include flex-options(row, center, center);
   min-width: 280px;
   width: 100%;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.25);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
 
   input {
     background: #f2f2f2;
@@ -28,7 +28,7 @@
 .search-settings {
   position: absolute;
   top: 50%;
-  transform: translate(-40%, -50%);
+  transform: translate(-70%, -50%);
   right: 0;
   border-radius: 50%;
   padding: 3px;
@@ -45,8 +45,9 @@
 .chats {
   @include flex-options(column, flex-start, flex-start);
   width: 100%;
-  height: calc(100% - 30px);
+  height: 656px;
   overflow-y: auto;
+  overflow-x: hidden;
 
   &::-webkit-scrollbar {
     width: 8px;
@@ -60,7 +61,7 @@
 }
 
 .separate-chat {
-  @include flex-options(row, flex-start, flex-start);
+  @include flex-options(row, flex-start, center);
   column-gap: 10px;
   width: 100%;
   position: relative;
@@ -73,12 +74,16 @@
   }
 }
 
+.chat-logo {
+  height: 40px;
+}
+
 .chat-text {
   @include flex-options(column, center, flex-start);
   width: 100%;
 }
 
-.chat-text-title {
+.chat-text-last-message {
   @include flex-options(row, space-between, center);
   column-gap: 10px;
 }
@@ -89,7 +94,7 @@
 
 .chat-title-time {
   font-size: 12px;
-  color: var(--secondary-grey);
+  color: #676767;
 }
 
 .chat-title-dot {
@@ -101,5 +106,5 @@
 
 .chat-last-message {
   font-size: 14px;
-  color: var(--secondary-grey);
+  color: #676767;
 }

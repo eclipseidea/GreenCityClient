@@ -9,8 +9,8 @@ export const UsersMock = {
   } as User,
   user1: {
     id: 9252,
-    firstName: 'Vitaliy',
-    lastName: 'Sisin',
+    firstName: 'Anna',
+    lastName: 'Kabaeva',
     email: ''
   } as User,
   user2: {

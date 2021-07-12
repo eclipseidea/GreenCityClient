@@ -22,30 +22,42 @@
   }
 
   button {
+    padding: 0;
     position: absolute;
     bottom: 0;
     box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.25);
   }
 
+  .smiles {
+    left: 0;
+    box-shadow: none;
+    transform: translate(45px, -40%);
+
+    img {
+      height: 25px;
+    }
+  }
+
   .send-button {
     right: 0;
-    transform: translate(-10px, -50%);
+    padding: 2px 3px;
+    transform: translate(-10px, calc(-40%));
   }
 
   .add-file-button {
     left: 0;
-    transform: translate(10px, -50%);
+    transform: translate(10px, -40%);
   }
 }
 
 .add-file-button {
   border-radius: 50%;
-  height: 21px;
-  width: 21px;
+  height: 26px;
+  width: 26px;
   @include flex-options(row, center, center);
 
   img {
-    height: 15px;
+    height: 20px;
   }
 }
 
@@ -54,6 +66,11 @@
   color: var(--sender-button-background);
   border-radius: 15px;
   padding: 0 5px;
+  visibility: hidden;
+
+  &.visible {
+    visibility: visible;
+  }
 }
 
 .message.in-modal {
@@ -62,13 +79,13 @@
   max-height: 100px;
   padding: 10px 15px;
   border-radius: 25px;
-  box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.25);
   @include flex-options(row, space-between, center);
+  column-gap: 10px;
 
   input {
     all: unset;
     width: 100%;
-    padding: 0 15px;
     font-size: 14px;
     height: 18px;
   }
@@ -81,6 +98,14 @@
 
     img {
       height: 20px;
+    }
+  }
+
+  .send-button {
+    visibility: hidden;
+
+    &.visible {
+      visibility: visible;
     }
   }
 }
