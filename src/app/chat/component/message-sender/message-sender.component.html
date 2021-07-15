@@ -1,25 +1,52 @@
-<form class="message" [formGroup]="messageForm" [ngClass]="inModal ? 'in-modal' : 'in-new-message'" (ngSubmit)="sendMessage()">
-  <button type="button" class="smiles" [title]="'chat.smile' | translate">
-    <img [src]="chatIcons.smile" [alt]="'chat.smile' | translate" />
-  </button>
-
-  <button type="button" class="add-file-button" [title]="'chat.add-file' | translate">
-    <img [src]="chatIcons.paperClip" [alt]="'chat.add-file' | translate" />
-  </button>
-
+<form class="send-form" [formGroup]="messageForm">
   <textarea
-    type="text"
-    [placeholder]="'chat.type-message' | translate"
+    class="message-textarea"
+    *ngIf="!inModal"
     formControlName="message"
+    [placeholder]="'chat.type-message' | translate"
     maxlength="255"
-    *ngIf="!inModal; else msgInputInModal"
   ></textarea>
 
-  <ng-template #msgInputInModal>
-    <input maxlength="255" type="text" [placeholder]="'chat.type-message' | translate" formControlName="message" />
-  </ng-template>
+  <div class="addition-buttons">
+    <button type="button" class="add-file" [title]="'chat.add-file' | translate">
+      <img [src]="chatIcons.paperClip" [alt]="'chat.add-file' | translate" />
+      <label for="file-input"></label>
+      <input id="file-input" type="file" (change)="addFile($event)" formControlName="file" />
+    </button>
 
-  <button type="submit" class="send-button" [title]="'chat.send' | translate" [ngClass]="{ visible: messageForm.get('message').valid }">
-    {{ 'chat.send' | translate }}
-  </button>
+    <input
+      type="text"
+      *ngIf="inModal"
+      class="message-input"
+      formControlName="message"
+      [placeholder]="'chat.type-message' | translate"
+      maxlength="255"
+    />
+
+    <div class="right-side-buttons">
+      <button type="button" class="smiles" [title]="'chat.smile' | translate">
+        <img [src]="chatIcons.smile" [alt]="'chat.smile' | translate" />
+      </button>
+
+      <div class="voice-or-send-button">
+        <button
+          type="button"
+          class="voice"
+          [ngClass]="{ active: !messageForm.get('message').value && !messageForm.get('file').value }"
+          [title]="'chat.voice' | translate"
+        >
+          <img [src]="chatIcons.voice" [alt]="'chat.voice' | translate" />
+        </button>
+
+        <button
+          type="submit"
+          class="send-button"
+          [ngClass]="{ active: messageForm.get('message').value || messageForm.get('file').value }"
+          [title]="'chat.send' | translate"
+        >
+          <img [src]="chatIcons.send" [alt]="'chat.send' | translate" />
+        </button>
+      </div>
+    </div>
+  </div>
 </form>

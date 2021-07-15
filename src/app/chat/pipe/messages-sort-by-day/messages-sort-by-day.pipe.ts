@@ -3,7 +3,8 @@ import { ChatMessageModel } from '../../models/ChatMessage.model';
 import { MessagesSortByDayModel } from '../../models/MessagesSortByDay.model';
 
 @Pipe({
-  name: 'messagesSortByDay'
+  name: 'messagesSortByDay',
+  pure: false
 })
 export class MessagesSortByDayPipe implements PipeTransform {
   transform(messages: ChatMessageModel[]): MessagesSortByDayModel[] {

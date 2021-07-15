@@ -1,5 +1,4 @@
 import { ChatMessageModel } from './models/ChatMessage.model';
-import { User } from '@global-models/user/user.model';
 import { UsersMock } from './usersMock';
 
 export const UserMessagesMock: ChatMessageModel[] = [
@@ -60,24 +59,24 @@ export const UserMessagesMock: ChatMessageModel[] = [
     sender: UsersMock.user2
   },
   {
-    id: 4,
+    id: 5,
     chatId: 2,
     date: new Date('December 21, 2021 14:14:00'),
     content: 'А где-то к 6 стрелканутся',
     sender: UsersMock.user2
   },
   {
-    id: 4,
+    id: 6,
     chatId: 2,
     date: new Date('December 21, 2021 14:14:00'),
     content: 'Ну впринципе хорошо что тренер прийдет',
     sender: UsersMock.user2
   },
   {
-    id: 4,
+    id: 7,
     chatId: 2,
     date: new Date('December 21, 2021 14:14:00'),
     content: 'Будешь хоть команды знаьь',
-    sender: UsersMock.user2
+    sender: UsersMock.self
   }
 ];

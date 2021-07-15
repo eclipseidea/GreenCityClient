@@ -32,7 +32,7 @@ export class ChatRoomsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.chatRoomsService.getAllUsersChat();
     const userChatSub = this.chatRoomsService.userChatsStream$.subscribe((chats) => {
-      // this.chats = chats;
+      this.chats = chats;
     });
 
     const isOpenSub = this.commonChatService.popupIsOpenStream$.subscribe((isOpen) => {

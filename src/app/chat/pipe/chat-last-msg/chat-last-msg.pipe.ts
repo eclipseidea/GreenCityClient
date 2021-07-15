@@ -7,7 +7,7 @@ export class ChatLastMsgPipe implements PipeTransform {
   transform(lastMessage: string): any {
     const result: string[] = [];
     for (const char of lastMessage) {
-      if (result.length === 30) {
+      if (result.length === 20) {
         break;
       }
       if (char.toUpperCase() === char) {

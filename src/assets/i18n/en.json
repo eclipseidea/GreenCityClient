@@ -879,7 +879,8 @@
     "participants": "Participants",
     "smile": "Smiles",
     "friends": "Friends",
-    "search-friends-text": "It looks like you don't have chats, try to find new acquaintances!",
-    "search-friends-button": "Find friends"
+    "search-friends-text": "It looks like you don't have any chats yet. Try to find new acquaintances!",
+    "search-friends-button": "Find friends",
+    "voice": "Record Voice"
   }
 }

@@ -7,7 +7,8 @@ export interface ChatRoomModel {
   logo: string;
   lastMessage: ChatMessageModel;
   chatType: string;
+  messages: ChatMessageModel[];
   participants: User[];
-  // ownerId: number;
-  // amountUnreadMessages: number;
+  ownerId: number;
+  amountUnreadMessages: number;
 }

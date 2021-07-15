@@ -15,6 +15,7 @@ import { SharedModule } from '../shared/shared.module';
 import { CurrentChatComponent } from './component/current-chat/current-chat.component';
 import { MessageSenderComponent } from './component/message-sender/message-sender.component';
 import { MessagesSortByDayPipe } from './pipe/messages-sort-by-day/messages-sort-by-day.pipe';
+import { ChatLastMessageSenderPipe } from './pipe/chat-last-message-sender/chat-last-message-sender.pipe';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { MessagesSortByDayPipe } from './pipe/messages-sort-by-day/messages-sort
     ChatLastMsgPipe,
     CurrentChatComponent,
     MessageSenderComponent,
-    MessagesSortByDayPipe
+    MessagesSortByDayPipe,
+    ChatLastMessageSenderPipe
   ],
   exports: [ChatPopupComponent],
   imports: [

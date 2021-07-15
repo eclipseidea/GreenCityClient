@@ -1,7 +1,7 @@
 <div class="chat-popup" [ngClass]="{ opened: isOpen }">
   <div class="popup-title">
     <button class="popup-title-account" (click)="commonChatService.changePopupOpenStatus()">
-      <img class="account-image" [src]="chatIcons.userLogo" [alt]="'chat.user-logo' | translate" />
+      <img class="account-image" [src]="userLogo || chatIcons.userLogo" [alt]="'chat.user-logo' | translate" />
       <span class="account-text">{{ 'chat.messages' | translate }}</span>
     </button>
 

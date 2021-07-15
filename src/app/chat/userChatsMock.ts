@@ -13,7 +13,8 @@ export const UserChatsMock: ChatRoomModel[] = [
       sender: UsersMock.user1
     },
     participants: [UsersMock.self, UsersMock.user1],
-    logo: 'assets/img/chat/avatar-mock.png'
+    logo: 'assets/img/chat/avatar-mock.png',
+    chatType: 'PRIVATE'
   } as ChatRoomModel,
   {
     id: 2,
@@ -22,9 +23,10 @@ export const UserChatsMock: ChatRoomModel[] = [
       id: 4,
       chatId: 2,
       date: new Date('December 21, 2021 14:14:00'),
-      content: 'I knew:) That is really cool, you',
-      sender: UsersMock.user2
+      content: 'Будешь хоть команды знаьь',
+      sender: UsersMock.self
     },
-    participants: [UsersMock.self, UsersMock.user2]
+    participants: [UsersMock.self, UsersMock.user2],
+    chatType: 'PRIVATE'
   } as ChatRoomModel
 ];

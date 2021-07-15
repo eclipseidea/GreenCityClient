@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { chatIcons } from '../../image-pathes/chatIcons';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material';
+import { CommonChatService } from '../../service/common-chat/common-chat.service';
 
 @Component({
   selector: 'app-message-sender',
@@ -10,17 +12,23 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class MessageSenderComponent implements OnInit {
   @Input() inModal: boolean;
   public chatIcons = chatIcons;
-  messageForm: FormGroup;
+  public messageForm: FormGroup;
 
-  constructor() {}
+  public uploadedFiles: any[] = [];
+  private maxFileSize = 16000;
+  public filesStorageCapacity = 10;
+  public messageInput = '';
+
+  constructor(private dialog: MatDialog, private commonChatService: CommonChatService) {}
 
   ngOnInit() {
     this.messageForm = new FormGroup({
-      message: new FormControl('', [Validators.required])
+      message: new FormControl('', [Validators.required]),
+      file: new FormControl()
     });
   }
 
-  sendMessage() {
-    console.log(this.messageForm);
+  addFile($event) {
+    // TODO: release file message logic
   }
 }

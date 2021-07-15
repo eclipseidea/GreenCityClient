@@ -4,9 +4,11 @@ import { ChatSubsService } from '../../service/chat-subs/chat-subs.service';
 import { NewMessageWindowComponent } from '../new-message-window/new-message-window.component';
 import { NewMessageReferenceDirective } from '../../directive/new-message-reference/new-message-reference.directive';
 import { CurrentChatService } from '../../service/current-chat/current-chat.service';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { ChatModalComponent } from '../chat-modal/chat-modal.component';
 import { chatIcons } from '../../image-pathes/chatIcons';
+import { ProfileService } from '@global-user/components/profile/profile-service/profile.service';
+import { SocketService } from '../../service/socket/socket.service';
 
 @Component({
   selector: 'app-chat-popup',
@@ -25,14 +27,16 @@ export class ChatPopupComponent implements OnInit, OnDestroy {
 
   public chatIcons = chatIcons;
   public isOpen: boolean;
-  private modalWindow: MatDialogRef<ChatModalComponent>;
+  public userLogo: string;
 
   constructor(
     private componentFactory: ComponentFactoryResolver,
     public commonChatService: CommonChatService,
     private chatSubsService: ChatSubsService,
     private currentChatService: CurrentChatService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private profileService: ProfileService,
+    private socketService: SocketService
   ) {}
 
   ngOnInit() {
@@ -40,13 +44,17 @@ export class ChatPopupComponent implements OnInit, OnDestroy {
       this.isOpen = isOpen;
     });
 
+    const profileSub = this.profileService.getUserInfo().subscribe((user) => {
+      this.userLogo = user.profilePicturePath;
+    });
+
     const newMessageIsOpenSub = this.commonChatService.newMessageIsOpenStream$.subscribe((isOpen) => {
       if (!isOpen && this.refDir) {
         this.refDir.containerRef.clear();
       }
     });
-
-    this.chatSubsService.addNewSub(isOpenSub, newMessageIsOpenSub);
+    // this.socketService.connect();
+    this.chatSubsService.addNewSub(isOpenSub, newMessageIsOpenSub, profileSub);
   }
 
   ngOnDestroy() {
@@ -55,11 +63,11 @@ export class ChatPopupComponent implements OnInit, OnDestroy {
 
   openModal() {
     this.dialog.closeAll();
-    this.modalWindow = this.dialog.open(ChatModalComponent, this.dialogConfig);
+    this.dialog.open(ChatModalComponent, this.dialogConfig);
   }
 
   openOptions() {
-    // TODO: define options logic
+    // TODO:Chat define options logic
   }
 
   openNewMessageWindow(createEmpty: boolean) {

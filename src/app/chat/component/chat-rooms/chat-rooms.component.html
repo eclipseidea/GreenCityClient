@@ -9,11 +9,14 @@
   <div class="chats" #chatsWrapper>
     <div class="separate-chat" *ngFor="let chat of chats | chatsSearch: chatRoomsSearchInput" (click)="openNewMsgWindow(chat)">
       <img class="chat-logo" [src]="chat.logo || chatIcons.userLogo" [alt]="'chat.user-logo' | translate" />
-
       <div class="chat-text">
         <span class="chat-title">{{ chat.name }}</span>
+
         <div class="chat-text-last-message">
-          <span class="chat-last-message">{{ chat.lastMessage.content | chatLastMsg }}</span>
+          <span class="chat-last-message">
+            <span class="last-message-sender"> {{ chat | chatLastSenderMessage }}</span
+            >{{ chat.lastMessage.content | chatLastMsg }}
+          </span>
           <span class="chat-title-dot"></span>
           <span class="chat-title-time">
             {{ messageDateTreatment(chat.lastMessage.date) }}
@@ -26,8 +29,10 @@
 
 <ng-template #noChatsPlaceholder>
   <div class="chat-rooms">
-    <img [src]="chatIcons.friends" [alt]="'chat.friends' | translate" />
-    <p class="search-friends-text">{{ 'chat.search-friends-text' | translate }}</p>
-    <button class="search-for-friends">{{ 'chat.search-friends-button' | translate }}</button>
+    <div class="search-friends">
+      <img class="search-friends-img" [src]="chatIcons.friends" [alt]="'chat.friends' | translate" />
+      <p class="search-friends-text">{{ 'chat.search-friends-text' | translate }}</p>
+      <button class="search-for-friends">{{ 'chat.search-friends-button' | translate }}</button>
+    </div>
   </div>
 </ng-template>

@@ -27,7 +27,6 @@
 
 .current-chat-participants {
   font-size: 13px;
-  cursor: pointer;
 }
 
 .green-planet-wrapper {
@@ -56,7 +55,6 @@
 .current-chat-block {
   @include flex-options(column);
   overflow-y: auto;
-  max-height: 610px;
 
   &::-webkit-scrollbar {
     width: 8px;
@@ -124,6 +122,10 @@
   }
 }
 
+.sender-logo {
+  height: 25px;
+}
+
 .text-block {
   @include flex-options(row, flex-start, center);
   max-width: 45%;
@@ -143,4 +145,11 @@
 .message-content {
   font-size: 14px;
   color: black;
+}
+
+.spinner-container {
+  margin: auto;
+  width: 100%;
+  height: 660px;
+  @include flex-options(row, center, center);
 }

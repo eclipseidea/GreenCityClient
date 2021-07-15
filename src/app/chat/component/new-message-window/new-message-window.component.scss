@@ -9,6 +9,7 @@
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
   background: var(--white);
+  z-index: 1000;
 }
 
 .new-msg-title {
@@ -39,6 +40,11 @@
     font-size: 17px;
     color: var(--primary-dark-grey);
     cursor: pointer;
+  }
+
+  img {
+    height: 30px;
+    border-radius: 50%;
   }
 }
 
@@ -95,6 +101,11 @@
   padding: 0 10px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
   cursor: pointer;
+
+  img {
+    height: 30px;
+    border-radius: 50%;
+  }
 
   &:hover {
     background: var(--pre-secondary-light-grey);

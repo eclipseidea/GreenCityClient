@@ -1,111 +1,108 @@
 @import '../chat-popup/chat-popup.component';
 
-.message.in-new-message {
-  --sender-button-background: #171717;
+img {
+  width: 20px;
+}
+
+.send-form {
+  @include flex-options(column, center, center);
+}
+
+.message-textarea {
   width: 100%;
+  height: 150px;
+  resize: none;
+  border: none;
+  outline: none;
   font-size: 14px;
+  padding: 0 10px;
   border-top: 1px solid rgba(0, 0, 0, 0.25);
-  position: relative;
+}
 
-  & > * {
-    padding: 0 10px;
-  }
+.message-input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  padding: 0 10px;
+}
 
-  textarea {
-    width: 100%;
-    height: 150px;
-    resize: none;
-    border: none;
-    outline: none;
-    margin-bottom: 40px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-  }
+.addition-buttons {
+  @include flex-options(row, space-between, center);
+  width: 100%;
+  padding: 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.25);
 
   button {
-    padding: 0;
-    position: absolute;
-    bottom: 0;
-    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.25);
+    border-radius: 50%;
+    height: 26px;
+    width: 26px;
+    @include flex-options(row, center, center);
+    transition: 0.2s linear;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.15);
+    }
+  }
+}
+
+.right-side-buttons {
+  @include flex-options(row, space-between, center);
+  column-gap: 10px;
+}
+
+.voice-or-send-button {
+  position: relative;
+  width: 26px;
+  height: 26px;
+}
+
+.send-button,
+.voice {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+
+  img {
+    transition: 0.2s linear;
+    height: 0;
   }
 
-  .smiles {
-    left: 0;
-    box-shadow: none;
-    transform: translate(45px, -40%);
+  &.active {
+    z-index: 10;
 
     img {
       height: 25px;
     }
   }
-
-  .send-button {
-    right: 0;
-    padding: 2px 3px;
-    transform: translate(-10px, calc(-40%));
-  }
-
-  .add-file-button {
-    left: 0;
-    transform: translate(10px, -40%);
-  }
 }
 
-.add-file-button {
-  border-radius: 50%;
-  height: 26px;
-  width: 26px;
-  @include flex-options(row, center, center);
-
+.send-button.active {
   img {
     height: 20px;
   }
 }
 
-.send-button {
-  font-size: 14px;
-  color: var(--sender-button-background);
-  border-radius: 15px;
-  padding: 0 5px;
-  visibility: hidden;
+.add-file {
+  position: relative;
+  min-width: 26px;
 
-  &.visible {
-    visibility: visible;
+  label {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    top: 0;
+    left: 0;
+    margin: 0;
+    cursor: pointer;
   }
-}
-
-.message.in-modal {
-  width: 90%;
-  margin: 15px auto;
-  max-height: 100px;
-  padding: 10px 15px;
-  border-radius: 25px;
-  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.25);
-  @include flex-options(row, space-between, center);
-  column-gap: 10px;
 
   input {
-    all: unset;
-    width: 100%;
-    font-size: 14px;
-    height: 18px;
+    display: none;
   }
 
-  button {
-    all: unset;
-    position: static;
-    box-shadow: none;
-    cursor: pointer;
-
-    img {
-      height: 20px;
-    }
-  }
-
-  .send-button {
-    visibility: hidden;
-
-    &.visible {
-      visibility: visible;
-    }
+  img {
+    height: 20px;
   }
 }

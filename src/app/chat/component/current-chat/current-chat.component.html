@@ -4,11 +4,11 @@
       {{ currentChat.name }}
     </span>
     <span class="dot"></span>
-    <button class="current-chat-participants">{{ 'chat.participants' | translate }}: {{ currentChat.participants.length }}</button>
+    <span class="current-chat-participants">{{ 'chat.participants' | translate }} : {{ currentChat.participants.length }}</span>
   </div>
 
   <div class="chat" *ngIf="currentChat; else emptyChatPlaceholder">
-    <div class="current-chat-block" #chatElement>
+    <div class="current-chat-block" *ngIf="!chatMessagesService.messagesOnLoad; else spinner" #chatElement>
       <div class="message-day" *ngFor="let dayMessages of allChatMessages | messagesSortByDay">
         <div class="day-title">
           <span>{{ dayMessages.date }}</span>
@@ -19,7 +19,13 @@
           *ngFor="let message of dayMessages.messages"
           [ngClass]="{ own: chatMessagesService.isOwnMessage(message.sender.id) }"
         >
-          <img class="sender-logo" [src]="chatIcons.userLogo" [alt]="'chat.user-logo' | translate" [title]="message.sender.firstName" />
+          <img
+            class="sender-logo"
+            [src]="currentChat.logo || chatIcons.userLogo"
+            [alt]="'chat.user-logo' | translate"
+            [title]="message.sender.firstName"
+          />
+          <!-- TODO: create function to get logo of user if chat is type of group -->
           <div class="text-block">
             <span class="message-content">
               {{ message.content }}
@@ -46,3 +52,9 @@
     </div>
   </ng-template>
 </div>
+
+<ng-template #spinner>
+  <div class="spinner-container">
+    <app-spinner></app-spinner>
+  </div>
+</ng-template>

@@ -8,5 +8,9 @@ export const chatIcons = {
   close: 'assets/img/chat/close.svg',
   greenPlanet: 'assets/img/chat/planet-earth.svg',
   smile: 'assets/img/chat/smile.svg',
-  friends: 'assets/img/chat/friends.svg'
+  friends: 'assets/img/chat/friends.svg',
+  file: 'assets/img/chat/file.svg',
+  image: 'assets/img/chat/image.svg',
+  send: 'assets/img/chat/send.svg',
+  voice: 'assets/img/chat/mic.svg'
 };
