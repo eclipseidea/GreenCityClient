@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'chatLastMsg'
+  name: 'chatLastMessage'
 })
-export class ChatLastMsgPipe implements PipeTransform {
+export class ChatLastMessagePipe implements PipeTransform {
   transform(lastMessage: string): any {
     const result: string[] = [];
     for (const char of lastMessage) {

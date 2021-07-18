@@ -25,5 +25,6 @@ export class CommonChatService implements OnDestroy {
 
   ngOnDestroy() {
     this.popupIsOpenStream$.complete();
+    this.newMessageIsOpenStream$.complete();
   }
 }

@@ -4,7 +4,6 @@ import { ChatSubsService } from '../../service/chat-subs/chat-subs.service';
 import { ChatRoomModel } from '../../models/ChatRoom.model';
 import { chatIcons } from '../../image-pathes/chatIcons';
 import { ChatMessagesService } from '../../service/chat-messages/chat-messages.service';
-import { ChatMessageModel } from '../../models/ChatMessage.model';
 import { SocketService } from '../../service/socket/socket.service';
 import { UsersMock } from '../../usersMock';
 
@@ -18,13 +17,12 @@ export class CurrentChatComponent implements OnInit, OnDestroy, AfterViewChecked
   @ViewChildren('chatElement') chatElement: QueryList<any>;
   public currentChat: ChatRoomModel;
   public chatIcons = chatIcons;
-  public allChatMessages: ChatMessageModel[] = [];
 
   constructor(
     public currentChatService: CurrentChatService,
     private chatSubsService: ChatSubsService,
     public chatMessagesService: ChatMessagesService,
-    public sock: SocketService
+    public socketService: SocketService
   ) {}
 
   ngOnInit() {
@@ -33,20 +31,23 @@ export class CurrentChatComponent implements OnInit, OnDestroy, AfterViewChecked
     });
 
     const currentChatMessagesSub = this.chatMessagesService.currentMessagesStream$.subscribe((messages) => {
-      this.allChatMessages = messages;
+      if (this.currentChat) {
+        this.currentChat.messages = messages;
+      }
     });
 
-    setTimeout(() => {
-      this.sock.onMessageReceived({
-        body: {
-          id: 1,
-          chatId: 1,
-          date: new Date(),
-          content: 'Hello, vitaliy',
-          sender: UsersMock.self
-        }
-      });
-    }, 5000);
+    // TODO: remove test
+    // setTimeout(() => {
+    //   this.socketService.onMessageReceived({
+    //     body: JSON.stringify({
+    //       id: 1,
+    //       chatId: 1,
+    //       date: new Date(),
+    //       content: 'Hello, vitaliy',
+    //       sender: UsersMock.self
+    //     })
+    //   });
+    // }, 10000);
 
     this.chatSubsService.addNewSub(currentChatSub, currentChatMessagesSub);
   }

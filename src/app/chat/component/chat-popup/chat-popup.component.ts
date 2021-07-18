@@ -9,6 +9,7 @@ import { ChatModalComponent } from '../chat-modal/chat-modal.component';
 import { chatIcons } from '../../image-pathes/chatIcons';
 import { ProfileService } from '@global-user/components/profile/profile-service/profile.service';
 import { SocketService } from '../../service/socket/socket.service';
+import { ChatRoomsService } from '../../service/chat-rooms/chat-rooms.service';
 
 @Component({
   selector: 'app-chat-popup',
@@ -36,10 +37,13 @@ export class ChatPopupComponent implements OnInit, OnDestroy {
     private currentChatService: CurrentChatService,
     private dialog: MatDialog,
     private profileService: ProfileService,
+    private chatRoomsService: ChatRoomsService,
     private socketService: SocketService
   ) {}
 
   ngOnInit() {
+    this.chatRoomsService.getAllUserChats();
+
     const isOpenSub = this.commonChatService.popupIsOpenStream$.subscribe((isOpen) => {
       this.isOpen = isOpen;
     });
@@ -59,6 +63,7 @@ export class ChatPopupComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.chatSubsService.deleteAllSubs();
+    this.socketService._closeWebSocket();
   }
 
   openModal() {

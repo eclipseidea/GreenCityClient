@@ -8,7 +8,7 @@ export const UserChatsMock: ChatRoomModel[] = [
     lastMessage: {
       id: 4,
       chatId: 1,
-      date: new Date('December 18, 2021 12:17:00'),
+      date: new Date('March 18, 2021 12:17:00'),
       content: 'Bye',
       sender: UsersMock.user1
     },
@@ -22,7 +22,7 @@ export const UserChatsMock: ChatRoomModel[] = [
     lastMessage: {
       id: 4,
       chatId: 2,
-      date: new Date('December 21, 2021 14:14:00'),
+      date: new Date('March 21, 2021 14:14:00'),
       content: 'Будешь хоть команды знаьь',
       sender: UsersMock.self
     },

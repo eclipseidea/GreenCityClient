@@ -6,7 +6,6 @@ import { ChatRoomsComponent } from './component/chat-rooms/chat-rooms.component'
 import { NewMessageWindowComponent } from './component/new-message-window/new-message-window.component';
 import { NewMessageReferenceDirective } from './directive/new-message-reference/new-message-reference.directive';
 import { ChatsSearchPipe } from './pipe/chats-search/chats-search.pipe';
-import { ChatLastMsgPipe } from './pipe/chat-last-msg/chat-last-msg.pipe';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -16,6 +15,8 @@ import { CurrentChatComponent } from './component/current-chat/current-chat.comp
 import { MessageSenderComponent } from './component/message-sender/message-sender.component';
 import { MessagesSortByDayPipe } from './pipe/messages-sort-by-day/messages-sort-by-day.pipe';
 import { ChatLastMessageSenderPipe } from './pipe/chat-last-message-sender/chat-last-message-sender.pipe';
+import { ChatLastMessagePipe } from './pipe/chat-last-message/chat-last-message.pipe';
+import { ChatLastMessageDatePipe } from './pipe/chat-last-message-date/chat-last-message-date.pipe';
 
 @NgModule({
   declarations: [
@@ -25,11 +26,12 @@ import { ChatLastMessageSenderPipe } from './pipe/chat-last-message-sender/chat-
     NewMessageWindowComponent,
     NewMessageReferenceDirective,
     ChatsSearchPipe,
-    ChatLastMsgPipe,
+    ChatLastMessagePipe,
     CurrentChatComponent,
     MessageSenderComponent,
     MessagesSortByDayPipe,
-    ChatLastMessageSenderPipe
+    ChatLastMessageSenderPipe,
+    ChatLastMessageDatePipe
   ],
   exports: [ChatPopupComponent],
   imports: [

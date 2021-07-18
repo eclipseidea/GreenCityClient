@@ -1,0 +1,8 @@
+import { LastMessageDatePipe } from './last-message-date.pipe';
+
+describe('LastMessageDatePipe', () => {
+  it('create an instance', () => {
+    const pipe = new LastMessageDatePipe();
+    expect(pipe).toBeTruthy();
+  });
+});

@@ -10,6 +10,7 @@ import { ChatMessageModel } from '../../models/ChatMessage.model';
 import { takeUntil } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 import { ChatMessagesService } from '../chat-messages/chat-messages.service';
+import { LocalStorageService } from '@global-service/localstorage/local-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,13 +26,15 @@ export class SocketService implements OnDestroy {
     private currentChatService: CurrentChatService,
     private userService: UserService,
     private chatRoomsService: ChatRoomsService,
-    private chatMessageService: ChatMessagesService
+    private chatMessageService: ChatMessagesService,
+    private localStorageService: LocalStorageService
   ) {}
 
   public connect(): void {
     this.socket = new SockJS(webSocketLink);
-    this.stompClient = Stomp.over(() => this.socket);
-    this.stompClient.connect({}, this.onConnected, this.onError);
+    this.stompClient = Stomp.over(this.socket);
+    const token = this.localStorageService.getAccessToken();
+    this.stompClient.connect({ Authorization: `Bearer ${token}` }, this.onConnected, this.onError);
   }
 
   public onConnected() {
@@ -49,16 +52,36 @@ export class SocketService implements OnDestroy {
     console.log(error);
   }
 
-  onMessageReceived(receivedMessage): void {
-    const newMessage: ChatMessageModel = receivedMessage.body;
+  private onMessageReceived(receivedMessage): void {
+    const newMessage: ChatMessageModel = JSON.parse(receivedMessage.body);
     const chatReceiver = this.chatRoomsService.findChatById(newMessage.chatId);
     chatReceiver.lastMessage = newMessage;
+    if (this.currentChatService.currentChatStream$.value === chatReceiver) {
+      this.chatMessageService.addMessage(newMessage);
+      return;
+    }
+    if (chatReceiver.messages) {
+      chatReceiver.messages.push(newMessage);
+    }
     // TODO: implement notification on not current chat message income
   }
 
   private onRoomReceived(receivedRoom) {
     const newChatRoom: ChatRoomModel = JSON.parse(receivedRoom.body);
-    this.chatRoomsService.userChats.push(receivedRoom);
+    this.chatRoomsService.addNewChatRoom(newChatRoom);
+  }
+
+  public createRoom(newChatRoom: ChatRoomModel): void {
+    this.stompClient.subscribe(`/room/${newChatRoom.id}/queue/messages`, this.onMessageReceived);
+    this.chatRoomsService.addNewChatRoom(newChatRoom);
+  }
+
+  public sendMessage(message: ChatMessageModel): void {
+    this.stompClient.send('/app/chat', {}, JSON.stringify(message));
+  }
+
+  public _closeWebSocket(): void {
+    this.socket.close();
   }
 
   ngOnDestroy() {

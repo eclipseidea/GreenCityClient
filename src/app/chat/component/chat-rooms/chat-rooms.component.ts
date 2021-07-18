@@ -6,6 +6,8 @@ import { CommonChatService } from '../../service/common-chat/common-chat.service
 import { MatDialog } from '@angular/material';
 import { chatIcons } from '../../image-pathes/chatIcons';
 import { ChatRoomModel } from '../../models/ChatRoom.model';
+import { UsersMock } from '../../usersMock';
+import { SocketService } from '../../service/socket/socket.service';
 
 @Component({
   selector: 'app-chat-rooms',
@@ -22,15 +24,15 @@ export class ChatRoomsComponent implements OnInit, OnDestroy {
   public chatRoomsSearchInput = '';
 
   constructor(
-    private chatRoomsService: ChatRoomsService,
+    public chatRoomsService: ChatRoomsService,
     private chatSubsService: ChatSubsService,
     public currentChatService: CurrentChatService,
     private commonChatService: CommonChatService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private socketService: SocketService
   ) {}
 
   ngOnInit() {
-    this.chatRoomsService.getAllUsersChat();
     const userChatSub = this.chatRoomsService.userChatsStream$.subscribe((chats) => {
       this.chats = chats;
     });
@@ -43,19 +45,31 @@ export class ChatRoomsComponent implements OnInit, OnDestroy {
         }
       }
     });
+    // TODO: remove this test
+    // setTimeout(() => {
+    //   this.socketService.onRoomReceived({
+    //     body: JSON.stringify({
+    //       id: 1,
+    //       name: UsersMock.user1.firstName + ' ' + UsersMock.user1.lastName,
+    //       lastMessage: {
+    //         id: 4,
+    //         chatId: 1,
+    //         date: new Date(),
+    //         content: 'Bye',
+    //         sender: UsersMock.user1
+    //       },
+    //       participants: [UsersMock.self, UsersMock.user1],
+    //       logo: 'assets/img/chat/avatar-mock.png',
+    //       chatType: 'PRIVATE'
+    //     } as ChatRoomModel)
+    //   });
+    // }, 5000);
 
     this.chatSubsService.addNewSub(userChatSub, isOpenSub);
   }
 
   ngOnDestroy() {
     this.chatSubsService.deleteAllSubs();
-  }
-
-  messageDateTreatment(date: Date): string {
-    const today = new Date().toLocaleDateString();
-    const sentDate = date.toLocaleDateString();
-    const sentTime = date.toLocaleTimeString();
-    return (today === sentDate ? sentTime : sentDate).slice(0, 5);
   }
 
   openNewMsgWindow(chat: ChatRoomModel) {

@@ -6,7 +6,7 @@
     </button>
   </div>
 
-  <div class="chats" #chatsWrapper>
+  <div class="chats" *ngIf="!chatRoomsService.userChatsIsLoading; else spinner" #chatsWrapper>
     <div class="separate-chat" *ngFor="let chat of chats | chatsSearch: chatRoomsSearchInput" (click)="openNewMsgWindow(chat)">
       <img class="chat-logo" [src]="chat.logo || chatIcons.userLogo" [alt]="'chat.user-logo' | translate" />
       <div class="chat-text">
@@ -14,12 +14,12 @@
 
         <div class="chat-text-last-message">
           <span class="chat-last-message">
-            <span class="last-message-sender"> {{ chat | chatLastSenderMessage }}</span
-            >{{ chat.lastMessage.content | chatLastMsg }}
+            <span class="last-message-sender">{{ chat | chatLastMessageSender }}</span>
+            {{ chat.lastMessage.content | chatLastMessage }}
           </span>
           <span class="chat-title-dot"></span>
           <span class="chat-title-time">
-            {{ messageDateTreatment(chat.lastMessage.date) }}
+            {{ chat.lastMessage.date | chatLastMessageDate }}
           </span>
         </div>
       </div>
@@ -34,5 +34,11 @@
       <p class="search-friends-text">{{ 'chat.search-friends-text' | translate }}</p>
       <button class="search-for-friends">{{ 'chat.search-friends-button' | translate }}</button>
     </div>
+  </div>
+</ng-template>
+
+<ng-template #spinner>
+  <div class="spinner-container">
+    <app-spinner></app-spinner>
   </div>
 </ng-template>

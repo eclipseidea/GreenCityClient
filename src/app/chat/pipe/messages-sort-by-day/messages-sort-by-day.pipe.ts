@@ -11,7 +11,7 @@ export class MessagesSortByDayPipe implements PipeTransform {
     const dateMap: object = {};
 
     messages.forEach((msg) => {
-      const mapDateKey = msg.date.toLocaleDateString();
+      const mapDateKey = new Date(msg.date).toLocaleDateString();
       if (!dateMap[mapDateKey]) {
         dateMap[mapDateKey] = [];
       }

@@ -3,7 +3,8 @@ import { UserService } from '@global-service/user/user.service';
 import { ChatRoomModel } from '../../models/ChatRoom.model';
 
 @Pipe({
-  name: 'chatLastSenderMessage'
+  name: 'chatLastMessageSender',
+  pure: false
 })
 export class ChatLastMessageSenderPipe implements PipeTransform {
   constructor(private userService: UserService) {}

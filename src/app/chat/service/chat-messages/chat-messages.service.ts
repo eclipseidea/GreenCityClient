@@ -5,8 +5,7 @@ import { delay, map, take } from 'rxjs/operators';
 import { ChatMessageModel } from '../../models/ChatMessage.model';
 import { UserService } from '@global-service/user/user.service';
 import { ChatRoomModel } from '../../models/ChatRoom.model';
-import { User } from '@global-models/user/user.model';
-import { CurrentChatService } from '../current-chat/current-chat.service';
+import { CommonChatService } from '../common-chat/common-chat.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +14,7 @@ export class ChatMessagesService implements OnDestroy {
   public currentMessagesStream$: BehaviorSubject<ChatMessageModel[]> = new BehaviorSubject<ChatMessageModel[]>([]);
   public messagesOnLoad = false;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private commonChatService: CommonChatService) {}
 
   getAllMessageFromChat(chat: ChatRoomModel) {
     this.messagesOnLoad = true;
@@ -28,8 +27,13 @@ export class ChatMessagesService implements OnDestroy {
       .subscribe((messages) => {
         this.currentMessagesStream$.next(messages);
         this.messagesOnLoad = false;
-        console.log(messages);
       });
+  }
+
+  addMessage(message: ChatMessageModel) {
+    const messages = this.currentMessagesStream$.value;
+    messages.push(message);
+    this.currentMessagesStream$.next(messages);
   }
 
   isOwnMessage(id: number) {

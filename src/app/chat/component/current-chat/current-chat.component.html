@@ -9,9 +9,10 @@
 
   <div class="chat" *ngIf="currentChat; else emptyChatPlaceholder">
     <div class="current-chat-block" *ngIf="!chatMessagesService.messagesOnLoad; else spinner" #chatElement>
-      <div class="message-day" *ngFor="let dayMessages of allChatMessages | messagesSortByDay">
+      <div class="message-day" *ngFor="let dayMessages of currentChat.messages | messagesSortByDay">
         <div class="day-title">
           <span>{{ dayMessages.date }}</span>
+          <!-- TODO: create pipe to specify if message sent today/yesterday -->
         </div>
 
         <div
