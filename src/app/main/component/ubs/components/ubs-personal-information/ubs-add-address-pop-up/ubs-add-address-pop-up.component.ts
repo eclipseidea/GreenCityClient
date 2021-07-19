@@ -21,6 +21,7 @@ export class UBSAddAddressPopUpComponent implements OnInit, OnDestroy {
   region = '';
   districtDisabled = true;
   nextDisabled = true;
+  buttonDisabled = false;
   streetPattern = /^[A-Za-zА-Яа-яїієё0-9.\'\,\-\ \\]+$/;
   houseCorpusPattern = /^[A-Za-zА-Яа-яїієё0-9]+$/;
   entranceNumberPattern = /^-?(0|[1-9]\d*)?$/;
@@ -82,6 +83,10 @@ export class UBSAddAddressPopUpComponent implements OnInit, OnDestroy {
       latitude: [this.data.edit ? this.data.address.latitude : '', Validators.required],
       id: [this.data.edit ? this.data.address.id : 0],
       actual: true
+    });
+
+    this.addAddressForm.valueChanges.subscribe(value => {
+      this.buttonDisabled = false;
     });
 
     // TODO: Must be removed if multi-city feature need to be implemented
@@ -152,6 +157,7 @@ export class UBSAddAddressPopUpComponent implements OnInit, OnDestroy {
   }
 
   addAdress() {
+    this.buttonDisabled = true;
     this.orderService
       .addAdress(this.addAddressForm.value)
       .pipe(takeUntil(this.destroy))
