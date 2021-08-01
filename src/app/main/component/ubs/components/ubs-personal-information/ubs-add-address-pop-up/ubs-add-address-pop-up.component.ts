@@ -24,10 +24,17 @@ export class UBSAddAddressPopUpComponent implements OnInit, OnDestroy {
   streetPattern = /^[A-Za-zА-Яа-яїієё0-9.\'\,\-\ \\]+$/;
   houseCorpusPattern = /^[A-Za-zА-Яа-яїієё0-9]+$/;
   entranceNumberPattern = /^-?(0|[1-9]\d*)?$/;
+  addAddressButtonIsClicked = false;
   private destroy: Subject<boolean> = new Subject<boolean>();
 
   cities = [
-    { cityName: 'Kiev', northLat: 50.59079800991073, southLat: 50.21327301525928, eastLng: 30.82594104187906, westLng: 30.23944009690609 }
+    {
+      cityName: 'Kiev',
+      northLat: 50.59079800991073,
+      southLat: 50.21327301525928,
+      eastLng: 30.82594104187906,
+      westLng: 30.23944009690609
+    }
   ];
 
   constructor(
@@ -151,7 +158,8 @@ export class UBSAddAddressPopUpComponent implements OnInit, OnDestroy {
     this.dialogRef.close();
   }
 
-  addAdress() {
+  addAddress() {
+    this.addAddressButtonIsClicked = true;
     this.orderService
       .addAdress(this.addAddressForm.value)
       .pipe(takeUntil(this.destroy))
