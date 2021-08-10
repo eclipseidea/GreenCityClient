@@ -20,6 +20,7 @@ export class UBSAddAddressPopUpComponent implements OnInit, OnDestroy {
   addAddressForm: FormGroup;
   region = '';
   districtDisabled = true;
+  buttonDisabled = false;
   nextDisabled = true;
   streetPattern = /^[A-Za-zА-Яа-яїієё0-9.\'\,\-\ \\]+$/;
   houseCorpusPattern = /^[A-Za-zА-Яа-яїієё0-9]+$/;
@@ -152,12 +153,14 @@ export class UBSAddAddressPopUpComponent implements OnInit, OnDestroy {
   }
 
   addAdress() {
+    this.buttonDisabled = true;
     this.orderService
       .addAdress(this.addAddressForm.value)
       .pipe(takeUntil(this.destroy))
       .subscribe((list: Address[]) => {
         this.updatedAddresses = list;
         this.dialogRef.close();
+        this.buttonDisabled = false;
       });
   }
 
