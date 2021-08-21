@@ -11,6 +11,7 @@ import { CertificateStatus } from '../../certificate-status.enum';
 import { FormBaseComponent } from '@shared/components/form-base/form-base.component';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { LocationService } from '../../services/location.service';
 
 @Component({
   selector: 'app-ubs-order-details',
@@ -76,6 +77,7 @@ export class UBSOrderDetailsComponent extends FormBaseComponent implements OnIni
     private shareFormService: UBSOrderFormService,
     private translate: TranslateService,
     private localStorageService: LocalStorageService,
+    private locationService: LocationService,
     router: Router,
     dialog: MatDialog
   ) {
@@ -85,6 +87,13 @@ export class UBSOrderDetailsComponent extends FormBaseComponent implements OnIni
 
   ngOnInit(): void {
     this.takeOrderData();
+    this.locationService.getLatAndLonOfUserLocation();
+  }
+
+  get orderIsValid() {
+    if (this.locationService.userDoesLiveInKyiv) {
+      return '';
+    }
   }
 
   getFormValues(): boolean {
@@ -113,10 +122,11 @@ export class UBSOrderDetailsComponent extends FormBaseComponent implements OnIni
         this.bags = this.orders.bags;
         this.points = this.orders.points;
         this.certificateLeft = orderData.points;
-        this.bags.forEach((bag) => {
+        this.bags.forEach((bag, id) => {
           bag.quantity = null;
-          this.orderDetailsForm.addControl('quantity' + String(bag.id), new FormControl(0, [Validators.min(0), Validators.max(999)]));
+          this.orderDetailsForm.addControl(`quantity${id}/${bag.capacity}`, new FormControl(0, [Validators.min(0), Validators.max(999)]));
         });
+        console.log(this.orderDetailsForm);
       });
   }
 
@@ -222,8 +232,9 @@ export class UBSOrderDetailsComponent extends FormBaseComponent implements OnIni
   }
 
   onQuantityChange(): void {
-    this.bags.forEach((bag) => {
-      const valueName = 'quantity' + String(bag.id);
+    this.bags.forEach((bag, i) => {
+      const valueName = `quantity${i}/${bag.capacity}`;
+      // TODO: back have to fix income bag data so id is not being duplicated
       const orderFormBagController = this.orderDetailsForm.controls[valueName];
       const startsWithZero = /^0\d+/;
 
