@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 import { Bag, FinalOrder, OrderDetails } from '../../models/ubs.interface';
-import { ReplaySubject, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { OrderService } from '../../services/order.service';
 import { UBSOrderFormService } from '../../services/ubs-order-form.service';
@@ -54,7 +54,6 @@ export class UBSOrderDetailsComponent extends FormBaseComponent implements OnIni
   userOrder: FinalOrder;
   object: {};
   private destroy: Subject<boolean> = new Subject<boolean>();
-  private destroyed$: ReplaySubject<any> = new ReplaySubject<any>(1);
   public currentLanguage: string;
   public certificateError = false;
   bonusesRemaining: boolean;
@@ -94,6 +93,15 @@ export class UBSOrderDetailsComponent extends FormBaseComponent implements OnIni
     if (this.locationService.userDoesLiveInKyiv) {
       return '';
     }
+    console.log(this.checkOrderOnMinAmount(20));
+    return true;
+  }
+
+  checkOrderOnMinAmount(minQuanOfPacks: 2 | 20) {
+    const bagsWithRequiredCapacity = this.bags.filter((bag, i) => bag.capacity === 120);
+    // return bagsWithRequiredCapacity.reduce((firstBag, secondBag, 0) => {
+    //   const firstBagValue = this.orderDetailsForm.get(`quantity${firstBag}`)
+    // })
   }
 
   getFormValues(): boolean {
@@ -126,7 +134,7 @@ export class UBSOrderDetailsComponent extends FormBaseComponent implements OnIni
           bag.quantity = null;
           this.orderDetailsForm.addControl(`quantity${id}/${bag.capacity}`, new FormControl(0, [Validators.min(0), Validators.max(999)]));
         });
-        console.log(this.orderDetailsForm);
+        console.log(this.orderDetailsForm, this.orderIsValid);
       });
   }
 
