@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthPageGuardService } from '@global-service/route-guards/auth-page-guard.service';
 import { UBSOrderFormComponent } from './components/ubs-order-form/ubs-order-form.component';
 import { UbsComponent } from './ubs.component';
+import { UbsMainPageComponent } from './components/ubs-main-page/ubs-main-page.component';
 
 const ubsRoutes: Routes = [
   {
@@ -11,7 +12,8 @@ const ubsRoutes: Routes = [
     component: UbsComponent,
     canActivate: [AuthPageGuardService],
     children: [
-      { path: '', component: UBSOrderFormComponent },
+      { path: '', component: UbsMainPageComponent },
+      { path: 'order', component: UBSOrderFormComponent },
       { path: 'confirm', component: UbsConfirmPageComponent }
     ]
   }

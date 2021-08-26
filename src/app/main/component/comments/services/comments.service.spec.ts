@@ -22,8 +22,8 @@ describe('CommentsService', () => {
   );
 
   beforeEach(() => {
-    service = TestBed.get(CommentsService);
-    httpTestingController = TestBed.get(HttpTestingController);
+    service = TestBed.inject(CommentsService);
+    httpTestingController = TestBed.inject(HttpTestingController);
   });
 
   afterEach(() => {
@@ -31,7 +31,7 @@ describe('CommentsService', () => {
   });
 
   it('should be created', () => {
-    const serviceNew: CommentsService = TestBed.get(CommentsService);
+    const serviceNew: CommentsService = TestBed.inject(CommentsService);
     expect(serviceNew).toBeTruthy();
   });
 
@@ -45,7 +45,7 @@ describe('CommentsService', () => {
       author: {
         id: 1,
         name: 'Some Cool Person',
-        userProfilePicturePath: 'path to cool person\'s img'
+        userProfilePicturePath: 'path to cool persons img'
       },
       id: 2,
       modifiedDate: new Date('2021-05-27T15:37:15.661Z'),
@@ -61,12 +61,12 @@ describe('CommentsService', () => {
     req.flush(commentBody);
   });
 
-  it('should set id 0 if nothing wasn\'t send in parameters', () => {
+  it('should set id 0 if nothing wasnt send in parameters', () => {
     const commentBody: any = {
       author: {
         id: 1,
         name: 'Some Cool Person',
-        userProfilePicturePath: 'path to cool person\'s img'
+        userProfilePicturePath: 'path to cool persons img'
       },
       id: 0,
       modifiedDate: new Date('2021-05-27T15:37:15.661Z'),
@@ -88,7 +88,7 @@ describe('CommentsService', () => {
       author: {
         id: 1,
         name: 'Some Cool Person',
-        userProfilePicturePath: 'path to cool person\'s img'
+        userProfilePicturePath: 'path to cool persons img'
       },
       id: 2,
       modifiedDate: new Date('2021-05-27T15:37:15.661Z'),
@@ -125,7 +125,7 @@ describe('CommentsService', () => {
           author: {
             id: 1,
             name: 'Some Cool Person',
-            userProfilePicturePath: 'path to cool person\'s img'
+            userProfilePicturePath: 'path to cool persons img'
           },
           currentUserLiked: true,
           id: 0,

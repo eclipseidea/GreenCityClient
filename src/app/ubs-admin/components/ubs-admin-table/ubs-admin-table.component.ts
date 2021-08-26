@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
+import { ubsAdminTable } from '../ubs-image-pathes/ubs-admin-table';
 
 @Component({
   selector: 'app-ubs-admin-table',
@@ -26,8 +27,15 @@ export class UbsAdminTableComponent implements OnInit {
   arrayOfHeaders: string[] = [];
   previousIndex: number;
   isLoading = true;
+  isUpdate = false;
   destroy: Subject<boolean> = new Subject<boolean>();
   arrowDirection: string;
+  tableData: any[];
+  totalPages: number;
+  pageSizeOptions: number[] = [10, 15, 20];
+  currentPage = 0;
+  pageSize = 10;
+  ubsAdminTableIcons = ubsAdminTable;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(private adminTableService: AdminTableService) {}
@@ -83,13 +91,13 @@ export class UbsAdminTableComponent implements OnInit {
     const beforeColumnsLength = this.columns.length;
     this.columns = this.columns.filter((el) => el.field !== field);
     const afterColumnsLength = this.columns.length;
+    const requiredFieldValues = ['orderid', 'order_status', 'order_date'];
     if (beforeColumnsLength === afterColumnsLength) {
-      const newObjectForHeader = Object.create({});
-      newObjectForHeader.field = field;
-      newObjectForHeader.index = i;
-      newObjectForHeader.field === 'orderid' || newObjectForHeader.field === 'order_status' || newObjectForHeader.field === 'order_date'
-        ? (newObjectForHeader.sticky = true)
-        : (newObjectForHeader.sticky = false);
+      const newObjectForHeader = {
+        field,
+        sticky: this.isPropertyRequired(field, requiredFieldValues),
+        index: i
+      };
       this.columns = [...this.columns.slice(0, i), newObjectForHeader, ...this.columns.slice(i, this.columns.length)];
       this.setDisplayedColumns();
     } else {
@@ -97,23 +105,24 @@ export class UbsAdminTableComponent implements OnInit {
     }
   }
 
-  getTable(columnName = 'orderid', sortingType = 'desc') {
+  getTable(columnName = 'orderId', sortingType = 'desc') {
     this.isLoading = true;
     this.adminTableService
-      .getTable(columnName, sortingType)
+      .getTable(columnName, this.currentPage, this.pageSize, sortingType)
       .pipe(takeUntil(this.destroy))
       .subscribe((item) => {
-        const arrayOfValues = item;
-        this.dataSource = new MatTableDataSource(arrayOfValues);
+        this.tableData = item[`page`];
+        this.totalPages = item[`totalPages`];
+        this.dataSource = new MatTableDataSource(this.tableData);
         const requiredColumns = [{ field: 'select', sticky: true }];
         const dynamicallyColumns = [];
-        const arrayOfproperties = Object.keys(arrayOfValues[0]);
-        arrayOfproperties.map((elem) => {
-          const objectOfValue = Object.create({});
-          objectOfValue.field = elem;
-          objectOfValue.field === 'orderid' || objectOfValue.field === 'order_status' || objectOfValue.field === 'order_date'
-            ? (objectOfValue.sticky = true)
-            : (objectOfValue.sticky = false);
+        const arrayOfProperties = Object.keys(this.tableData[0]);
+        arrayOfProperties.forEach((property) => {
+          const requiredFieldValues = ['orderid', 'order_status', 'order_date'];
+          const objectOfValue = {
+            field: property,
+            sticky: this.isPropertyRequired(property, requiredFieldValues)
+          };
           dynamicallyColumns.push(objectOfValue);
         });
         this.columns = [].concat(requiredColumns, dynamicallyColumns);
@@ -129,8 +138,37 @@ export class UbsAdminTableComponent implements OnInit {
       });
   }
 
+  private isPropertyRequired(field: string, requiredFields: string[]) {
+    return requiredFields.some((reqField) => field === reqField);
+  }
+
+  updateTableData() {
+    this.isUpdate = true;
+    this.adminTableService
+      .getTable('orderId', this.currentPage, this.pageSize, 'desc')
+      .pipe(takeUntil(this.destroy))
+      .subscribe((item) => {
+        const data = item[`page`];
+        this.totalPages = item[`totalPages`];
+        this.tableData = [...this.tableData, ...data];
+        this.dataSource.data = this.tableData;
+        this.isUpdate = false;
+      });
+  }
+
   getSortingDate(columnName, sortingType) {
-    this.arrowDirection === columnName ? (this.arrowDirection = null) : (this.arrowDirection = columnName);
+    this.arrowDirection = this.arrowDirection === columnName ? null : columnName;
     this.getTable(columnName, sortingType);
+  }
+
+  selectPageSize(value: number) {
+    this.pageSize = value;
+  }
+
+  onScroll() {
+    if (!this.isUpdate && this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updateTableData();
+    }
   }
 }

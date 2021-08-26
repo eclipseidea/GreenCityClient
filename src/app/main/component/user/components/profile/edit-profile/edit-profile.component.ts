@@ -1,5 +1,5 @@
 import { MatSnackBarComponent } from '@global-errors/mat-snack-bar/mat-snack-bar.component';
-import { Component, ElementRef, NgZone, OnInit, OnDestroy, ViewChild, DoCheck } from '@angular/core';
+import { Component, NgZone, OnInit, OnDestroy, DoCheck } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { EditProfileFormBuilder } from '@global-user/components/profile/edit-profile/edit-profile-form-builder';
 import { EditProfileService } from '@global-user/services/edit-profile.service';
@@ -89,7 +89,7 @@ export class EditProfileComponent extends FormBaseComponent implements OnInit, O
   public getFormValues(): any {
     return {
       firstName: this.editProfileForm.value.name,
-      city: this.cityName,
+      city: this.editProfileForm.value.city,
       userCredo: this.editProfileForm.value.credo,
       showLocation: this.editProfileForm.value.showLocation,
       showEcoPlace: this.editProfileForm.value.showEcoPlace,
@@ -150,7 +150,7 @@ export class EditProfileComponent extends FormBaseComponent implements OnInit, O
 
   public sendFormData(form): void {
     const body: EditProfileDto = {
-      city: this.cityName,
+      city: form.value.city,
       firstName: form.value.name,
       userCredo: form.value.credo,
       showLocation: form.value.showLocation,

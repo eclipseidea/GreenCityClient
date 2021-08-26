@@ -17,10 +17,10 @@ export class UBSOrderFormComponent implements AfterViewInit, DoCheck {
 
   completed = false;
 
-  @ViewChild('firstStep', { static: false }) stepOneComponent: UBSOrderDetailsComponent;
-  @ViewChild('secondStep', { static: false }) stepTwoComponent: UBSPersonalInformationComponent;
-  @ViewChild('thirdStep', { static: false }) stepThreeComponent: UBSSubmitOrderComponent;
-  @ViewChild(MatHorizontalStepper, { static: false }) stepper: MatHorizontalStepper;
+  @ViewChild('firstStep') stepOneComponent: UBSOrderDetailsComponent;
+  @ViewChild('secondStep') stepTwoComponent: UBSPersonalInformationComponent;
+  @ViewChild('thirdStep') stepThreeComponent: UBSSubmitOrderComponent;
+  @ViewChild(MatHorizontalStepper) stepper: MatHorizontalStepper;
 
   constructor(private cdr: ChangeDetectorRef) {}
 
@@ -36,7 +36,7 @@ export class UBSOrderFormComponent implements AfterViewInit, DoCheck {
   }
 
   ngDoCheck(): void {
-    if (this.stepper && this.stepper.selected.state === 'finalStep') {
+    if (this.stepper?.selected.state === 'finalStep') {
       this.completed = true;
     }
   }

@@ -119,10 +119,11 @@
       "news": "News",
       "tips": "Tips & Tricks",
       "see-all-news": "See all News",
-      "see-all-tips": "See all Tips & Tricks"
+      "see-all-tips": "See all Tips & Tricks",
+      "see-all-results": "See all results"
     },
     "search-not-found": {
-      "not-found-text": "We couldn't find results for '{{searchQuery}}'. Please change the search.",
+      "not-found-text": "We couldn't find results for '{{searchQuery}}' Please change the search.",
       "choose-alternative": "Maybe you can find some interesting stuff here:",
       "alternative-header-news": "News",
       "alternative-description-news": "Find the latest news, events and initiatives here. Find news and create ones.",
@@ -289,7 +290,7 @@
       "confirm-restore-password": "Your password has just been reset.",
       "confirm-email": "Your email has been verified.",
       "restore-password": "Restore password link was sent to your email address.",
-      "sign-up": "You have successfully registered on the site. Please confirm your email address in the email box."
+      "sign-up": "Congratulations! You have successfully registered on the site. Please confirm your email address in the email box."
     }
   },
   "user": {
@@ -406,7 +407,7 @@
       "show-all": "Show all",
       "clear-filters": "Clear Filters",
       "rate": "Rate:",
-      "comments": "Comments:",
+      "comments": "Comments",
       "add-comment": "Add comment",
       "navigate-to-place": "Navigate to place",
       "close-navigation": "Close navigation",
@@ -573,7 +574,6 @@
       "tips": "Tips & Tricks",
       "map": "Places",
       "my-habits": "My habits",
-      "ubs-courier": "UBS courier",
       "follow-us": "Follow us"
     },
     "user-goals": {
@@ -600,9 +600,37 @@
       }
     },
     "habit": {
+      "btn": {
+        "back-to-habit": "Back to my habits",
+        "save": "Save",
+        "give-up": "Give up",
+        "add": "Add Habit",
+        "cancel": "Cancel"
+      },
       "button-component": {
         "add-new-habit": "Add new habit!"
       },
+      "header": {
+        "tags": "Smart consuming",
+        "aquired": "Aquired by 134 users"
+      },
+      "info": "Habit info",
+      "progress-title": "Progress",
+      "invite": {
+        "title": "Invite friends",
+        "message": "Invite your friends to share progress and compete with them",
+        "all": "All friends",
+        "btn": {
+          "invite": "Invite",
+          "cancel": "Cancel"
+        }
+      },
+      "duration": {
+        "title": "Duration",
+        "text": "This duration of habit formation is recommended. You can change it at will",
+        "day": "d"
+      },
+      "shopping": "Shopping list",
       "user-log": {
         "day": "Day",
         "calendar-habit": "Calendar of eco habits",
@@ -636,7 +664,9 @@
         "no-habits-advice": "We couldn't find any more habits. Please change filters to get another result.",
         "btn-more": "More",
         "btn-add": "Add habit",
-        "new-habit-added": "You have successfully added a new habit to your list"
+        "new-habit-added": "You have successfully added a new habit to your list",
+        "new-habit-updated": "You have successfully updated a habit",
+        "habit-was-deleted": "You have successfully deleted habit from your list"
       },
       "habit-trackers": {
         "habit-tracker": {
@@ -752,7 +782,10 @@
       "habits-acquired": "Acquired",
       "habits": "habits",
       "no-habits-in-progress": "Hi Eco Friend ;-)",
-      "no-habits-in-progress-advice": "Welcome to My Habits. It seems you don’t have habits in progress. Let’s start to acquire a new one!"
+      "no-habits-in-progress-advice": "Welcome to My Habits. It seems you don’t have habits in progress. Let’s start to acquire a new one!",
+      "news-list": "List of news",
+      "news": "news",
+      "add-news": "Add News"
     },
     "habits-in-progress": "In progress",
     "my-Achievements": "My Achievements",

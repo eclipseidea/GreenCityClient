@@ -11,7 +11,7 @@ import { take } from 'rxjs/operators';
   templateUrl: './form-base.component.html'
 })
 export class FormBaseComponent implements ComponentCanDeactivate {
-  @ViewChild('formEditProf', { static: false }) formEditProf: ElementRef;
+  @ViewChild('formEditProf') formEditProf: ElementRef;
 
   public areChangesSaved = false;
   public initialValues = {};
@@ -29,7 +29,9 @@ export class FormBaseComponent implements ComponentCanDeactivate {
     }
   };
 
-  public getFormValues(): any {}
+  public getFormValues(): any {
+    // TODO: add functionality to this method
+  }
 
   constructor(public router: Router, public dialog: MatDialog) {}
 
@@ -39,22 +41,8 @@ export class FormBaseComponent implements ComponentCanDeactivate {
   }
 
   public cancel(): void {
-    if (this.checkChanges()) {
-      const matDialogRef = this.dialog.open(WarningPopUpComponent, this.popupConfig);
-
-      matDialogRef
-        .afterClosed()
-        .pipe(take(1))
-        .subscribe((confirm) => {
-          if (confirm) {
-            this.areChangesSaved = true;
-            this.router.navigate([this.previousPath]);
-          }
-        });
-    } else {
-      this.areChangesSaved = true;
-      this.router.navigate([this.previousPath]);
-    }
+    this.cancelPopupJustifying(true);
+    localStorage.removeItem('newsTags');
   }
 
   public checkChanges(): boolean {
@@ -67,7 +55,12 @@ export class FormBaseComponent implements ComponentCanDeactivate {
   }
 
   cancelUBS(): void {
-    if (this.getFormValues()) {
+    const condition = this.getFormValues();
+    this.cancelPopupJustifying(condition);
+  }
+
+  private cancelPopupJustifying(condition: boolean) {
+    if (condition) {
       const matDialogRef = this.dialog.open(WarningPopUpComponent, this.popupConfig);
 
       matDialogRef
@@ -79,9 +72,9 @@ export class FormBaseComponent implements ComponentCanDeactivate {
             this.router.navigate([this.previousPath]);
           }
         });
-    } else {
-      this.areChangesSaved = true;
-      this.router.navigate([this.previousPath]);
+      return;
     }
+    this.areChangesSaved = true;
+    this.router.navigate([this.previousPath]);
   }
 }
