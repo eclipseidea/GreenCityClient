@@ -57,7 +57,7 @@ export class ChatPopupComponent implements OnInit, OnDestroy {
         this.refDir.containerRef.clear();
       }
     });
-    // this.socketService.connect();
+    this.socketService.connect();
     this.chatSubsService.addNewSub(isOpenSub, newMessageIsOpenSub, profileSub);
   }
 

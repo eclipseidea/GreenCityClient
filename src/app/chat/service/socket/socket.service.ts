@@ -10,7 +10,6 @@ import { ChatMessageModel } from '../../models/ChatMessage.model';
 import { takeUntil } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 import { ChatMessagesService } from '../chat-messages/chat-messages.service';
-import { LocalStorageService } from '@global-service/localstorage/local-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,33 +18,33 @@ export class SocketService implements OnDestroy {
   private socket: WebSocket;
   private stompClient: CompatClient;
 
-  private currentChat: ChatRoomModel;
   private destroyed$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(
     private currentChatService: CurrentChatService,
     private userService: UserService,
     private chatRoomsService: ChatRoomsService,
-    private chatMessageService: ChatMessagesService,
-    private localStorageService: LocalStorageService
+    private chatMessageService: ChatMessagesService
   ) {}
 
   public connect(): void {
     this.socket = new SockJS(webSocketLink);
-    this.stompClient = Stomp.over(this.socket);
-    const token = this.localStorageService.getAccessToken();
-    this.stompClient.connect({ Authorization: `Bearer ${token}` }, this.onConnected, this.onError);
+    this.stompClient = Stomp.over(() => this.socket);
+    this.stompClient.connect(
+      {},
+      () => this.onConnected(),
+      (error) => this.onError(error)
+    );
   }
 
   public onConnected() {
     this.chatRoomsService.userChatsStream$.pipe(takeUntil(this.destroyed$)).subscribe((chatRooms) => {
       chatRooms.forEach((chatRoom) => {
-        this.currentChat = chatRoom;
-        this.stompClient.subscribe(`/room/${chatRoom.id}/queue/messages`, this.onMessageReceived);
+        this.stompClient.subscribe(`/room/${chatRoom.id}/queue/messages`, (receivedMessage) => this.onMessageReceived(receivedMessage));
       });
     });
 
-    this.stompClient.subscribe(`/rooms/user/${this.userService.userId}`, this.onRoomReceived);
+    this.stompClient.subscribe(`/rooms/user/${this.userService.userId}`, (receivedRoom) => this.onRoomReceived(receivedRoom));
   }
 
   private onError(error: Error) {
